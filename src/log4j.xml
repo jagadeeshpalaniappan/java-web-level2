@@ -1,0 +1,39 @@
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd" >
+<log4j:configuration>
+
+	<appender name="consoleAppender" class="org.apache.log4j.ConsoleAppender">
+		<param name="Threshold" value="INFO" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d %-5p  [%c{1}] %m %n" />
+		</layout>
+	</appender>
+
+	<appender name="fileAppender" class="org.apache.log4j.RollingFileAppender">
+		<param name="Threshold" value="INFO" />
+		<param name="File" value="C://JUNIVERSE/WORKSPACES/jworkspace-JAG/jSpring6.log" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d %-5p  [%c{1}] %m %n" />
+		</layout>
+	</appender>
+	
+	<appender name="ASYNC" class="org.apache.log4j.AsyncAppender">
+		<param name="BufferSize" value="5000" />
+		<appender-ref ref="consoleAppender" />
+		<appender-ref ref="fileAppender" />
+	</appender>
+
+	<logger name="com.domain.contacts" additivity="false">
+		<level value="INFO" />
+		<!-- 
+		<appender-ref ref="consoleAppender" />
+		<appender-ref ref="fileAppender" />
+		 -->
+		<appender-ref ref="ASYNC" />
+	</logger>
+	
+	<root>
+		<priority value="info"></priority>
+		<appender-ref ref="ASYNC" />
+	</root>
+
+</log4j:configuration>

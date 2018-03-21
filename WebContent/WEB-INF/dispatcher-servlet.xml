@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+    xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd" 
+	xmlns:p="http://www.springframework.org/schema/p">	
+	
+	
+	<!-- ********************************************Struts-Tiles*************************************************************** -->
+	 
+	<bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles.TilesConfigurer">
+		<property name="factoryClass">
+			<value>org.apache.struts.tiles.xmlDefinition.I18nFactorySet</value>
+		</property>
+		<property name="definitions">
+			<value>WEB-INF/tiles-defs.xml</value>
+		</property>
+	</bean>
+	
+	
+	
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="requestContextAttribute">
+			<value>rc</value>
+		</property>
+		<property name="viewClass">
+			<value>org.springframework.web.servlet.view.tiles.TilesJstlView</value>
+		</property>
+		<property name="suffix">
+			<value>.page</value>
+		</property>
+	</bean> 
+	
+	<!-- ********************************************/Struts-Tiles*************************************************************** -->
+
+	
+	<!-- ******************************************** URL -ControllerClassName MAPPING ******************************************** -->
+	<bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<props>			  	
+				<prop key="/index.htm">contactsController</prop>
+				<prop key="/getAllContacts.htm">contactsController</prop>
+				<prop key="/saveContact.htm">contactsController</prop>
+				<prop key="/getContact.htm">contactsController</prop>
+				<prop key="/deleteContact.htm">contactsController</prop>
+            </props>
+		</property>
+	</bean>
+
+	<!-- ******************************************** /URL -ControllerClassName MAPPING ******************************************** -->
+	
+	
+	
+	<!-- ******************************************* Controller Classes ***********************************************************-->
+	<bean id="contactsController" class="com.domain.contacts.controller.ContactsController">
+	
+		<!-- Bean wiring with Service Layer -->
+		<property name="contactsService"><ref bean="contactsService"/></property>
+		
+		
+		<!-- OPTIONAL: required only if URL name & methodName are different  -->
+		<property name="methodNameResolver">
+		    <ref bean="propertiesMethodNameResolver" />
+	 	</property>
+	 	
+	</bean>
+	
+	
+	
+	<!-- ******************************************* /Controller Classes ***********************************************************-->
+	
+	
+	
+	
+	
+	
+	
+	
+	<!-- ******************************************** URL -methodName MAPPING ******************************************** -->
+	
+	<!-- Mapping the URL pattern & method name -->
+	<bean name="propertiesMethodNameResolver" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+		<property name="mappings">
+			<props>
+			    <prop key="/index.htm">getAllContacts</prop>
+			    <prop key="/getAllContacts.htm">getAllContacts</prop>
+				<prop key="/saveContact.htm">saveContact</prop>
+				<prop key="/getContact.htm">getContact</prop>
+				<prop key="/deleteContact.htm">deleteContact</prop>
+			</props>
+		</property>
+	</bean> 
+	<!-- ******************************************** /URL -methodName MAPPING ******************************************** -->
+	
+	
+</beans>	
