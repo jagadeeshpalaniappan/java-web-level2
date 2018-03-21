@@ -35,6 +35,5 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-webmvc-struts.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-webmvc.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/standard.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/struts-1.1.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
